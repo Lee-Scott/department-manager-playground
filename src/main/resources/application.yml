@@ -1,0 +1,78 @@
+# The exact same thing as application.properties you can google a converter -- now I have added a bunch to it
+# tell spring witch profiles to run with default active
+
+# to deploy in production go to terminal and:
+# mvn clean install
+# cd target
+# java -jar demoTwo-1.0.0.jar prod --spring.profiles.active=prod
+#            name ^            ^ profile
+# ctrl + c to end
+
+# /actuator to go to actuator
+# expose end points for actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        exclude: "env, beans"
+
+
+server:
+  port: '8080'
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp
+    password: Ls4934506
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Hello
+
+
+  # profiles for deployment options
+  # Creates new document
+---
+spring:
+  profiles: qa
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-qa
+    password: Ls4934506
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Hello
+
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dcbapp-prod
+    password: Ls4934506
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message: Hello
+
